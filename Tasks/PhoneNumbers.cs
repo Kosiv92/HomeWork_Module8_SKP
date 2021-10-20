@@ -13,28 +13,20 @@ namespace Module_8.SKP
         /// <summary>
         /// Добавление контакта в телефонную книгу
         /// </summary>
-        static void AddContact()
-        {
-            Console.Write("Введите номер телефона (11 цифр):");
-            long number = AuxiliaryMethods.InputPhoneNumber();
-            Console.WriteLine();
-            Console.Write("Введите ФИО контакта:");
-            string fullName = Console.ReadLine();
-            phoneBook.Add(number, fullName);
+        static void AddContact(long number, string name)
+        {                        
+            phoneBook.Add(number, name);
         }
 
         /// <summary>
         /// Поиск контакта в телефонной книге и вывод его на экран
         /// </summary>
-        static void FindContact()
-        {
-            Console.Write("Введите номер телефона (11 цифр) для поиска ФИО контакта в телефонной книге:");
-            long number = AuxiliaryMethods.InputPhoneNumber();
-            bool contactExist = phoneBook.TryGetValue(number, out string fullName);
+        static string FindNameContact(long phoneNumber)
+        {            
+            bool contactExist = phoneBook.TryGetValue(phoneNumber, out string fullName);
             Console.WriteLine();
-            if (contactExist) Console.WriteLine($"Номер телефона:{number}; ФИО:{fullName}");
-            else Console.WriteLine("Контакта с указанным номером нет в телефонной книге");
-            Console.ReadKey();
+            if (contactExist) return ($"Номер телефона:{phoneNumber}; ФИО:{fullName}");
+            else return("Контакта с указанным номером нет в телефонной книге");
         }
 
         /// <summary>
@@ -43,6 +35,9 @@ namespace Module_8.SKP
         public static void ShowMenu()
         {
             bool task2_On = true;
+            long phoneNumber;
+            string name;
+
             while (task2_On)
             {
                 Console.Clear();
@@ -53,10 +48,14 @@ namespace Module_8.SKP
                 switch (chooseByUser.KeyChar)
                 {
                     case '1':
-                        AddContact();
+                        name = AuxiliaryMethods.InputContactName();
+                        phoneNumber = AuxiliaryMethods.InputContactPhone();
+                        AddContact(phoneNumber,name);
                         break;
                     case '2':
-                        FindContact();
+                        phoneNumber = AuxiliaryMethods.InputContactPhone();
+                        Console.WriteLine(FindNameContact(phoneNumber));
+                        Console.ReadKey();
                         break;
                     case '3':
                         task2_On = false;

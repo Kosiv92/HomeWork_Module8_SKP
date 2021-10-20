@@ -13,17 +13,10 @@ namespace Module_8.SKP
         /// <summary>
         /// Добавление числа в хэш-таблицу
         /// </summary>
-        static void AddNumber()
+        static void AddNumber(int number)
         {
-            Console.WriteLine();
-            int number = AuxiliaryMethods.InputNumber();
-            if (numbers.Contains(number)) Console.WriteLine("Указанное число уже добавлено. Необходимо новое уникальное число.");
-            else
-            {
-                numbers.Add(number);
-                Console.WriteLine("Число успешно сохранено");
-            }
-            Console.ReadKey();
+             numbers.Add(number);
+               
         }
 
         /// <summary>
@@ -54,7 +47,16 @@ namespace Module_8.SKP
                 switch (chooseByUser.KeyChar)
                 {
                     case '1':
-                        AddNumber();
+                        Console.WriteLine();
+                        int number = AuxiliaryMethods.InputNumber();
+                        if (numbers.Contains(number)) Console.WriteLine("Указанное число уже добавлено. Необходимо новое уникальное число.");
+                        else
+                        {
+                            AddNumber(number);
+                            Console.WriteLine("Число успешно сохранено");
+                            }
+                        AddNumber(number);
+                        Console.ReadKey();
                         break;
                     case '2':
                         PrintNumbers();

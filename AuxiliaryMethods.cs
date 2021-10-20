@@ -9,6 +9,31 @@ namespace Module_8.SKP
     public static class AuxiliaryMethods
     {
         /// <summary>
+        /// Получение данных о номере телефона контакта от пользователя
+        /// </summary>
+        /// <returns>Номер телефона контакта</returns>
+        public static long InputContactPhone()
+        {
+            Console.Write("Введите номер телефона (11 цифр):");
+            long number = AuxiliaryMethods.InputPhoneNumber();
+            Console.WriteLine();            
+            return number;
+        }
+
+        /// <summary>
+        /// Получение данных об имени контакта от пользователя
+        /// </summary>
+        /// <returns>Имя контакта</returns>
+        public static string InputContactName()
+        {            
+            Console.Write("Введите ФИО контакта:");
+            string fullName = Console.ReadLine();
+            Console.WriteLine();
+            return fullName;
+        }
+
+
+        /// <summary>
         /// Метод ввода пользователем целого числа
         /// </summary>
         /// <returns>Введенное пользователем число</returns>
@@ -35,7 +60,7 @@ namespace Module_8.SKP
             {
                 string inputByUser = Console.ReadLine();
                 if (CheckPhoneNumber(inputByUser, ref number) && inputByUser.Length == 11) break;
-                else Console.WriteLine("Некорректный ввод. Номер телефона должен состоять из 11 цифр (мобильный или городской с кодом города)");                
+                else Console.WriteLine("Некорректный ввод. Номер телефона должен состоять из 11 цифр (мобильный или городской с кодом города)");
             }
             return number;
         }

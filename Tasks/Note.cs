@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace Module_8.SKP
 {
-    
+
     static class Note
     {
         static int numberOfContact = 1;
@@ -17,17 +17,23 @@ namespace Module_8.SKP
         /// </summary>
         public static void CreateNewNote()
         {
-            Console.Write("Введите имя:");
-            string name = Console.ReadLine();
-            Console.WriteLine();
-            XElement Person = new XElement("Person");
-            XAttribute XAttributeName = new XAttribute("name", name);
-            Person.Add(XAttributeName);
+            XElement Person = InputNoteData();
+            Person.Save("contact_" + numberOfContact);
+            Console.WriteLine("Контакт успешно сохранено в папке с программой");
+            Console.ReadKey();
+            numberOfContact++;
+        }
 
+        /// <summary>
+        /// Ввод данных адреса пользователем
+        /// </summary>
+        /// <param name="Person"></param>
+        public static void InputAddressData(XElement Person)
+        {
             Console.Write("Укажите адресс. Введите название улицы:");
             string street = Console.ReadLine();
             Console.WriteLine();
-            XElement Address = new XElement("Address");            
+            XElement Address = new XElement("Address");
             XAttribute XAttributeStreetName = new XAttribute("street_name", street);
             Console.Write("Введите номер дома:");
             string houseNumber = Console.ReadLine();
@@ -40,7 +46,15 @@ namespace Module_8.SKP
             Address.Add(XAttributeStreetName);
             Address.Add(XAttributeHouseNumber);
             Address.Add(XAttributeFlatNumber);
+            Person.Add(Address);
+        }
 
+        /// <summary>
+        /// Ввод данных контактных данных пользователем
+        /// </summary>
+        /// <param name="Person"></param>
+        public static void InputPhoneData(XElement Person)
+        { 
             XElement Phones = new XElement("Phones");
             Console.Write("Введите номер мобильного телефона:");
             string mobilePhone = Console.ReadLine();
@@ -52,20 +66,28 @@ namespace Module_8.SKP
             XAttribute XAttributeFlatPhone = new XAttribute("flat_phone", flatPhone);
             Phones.Add(XAttributeMobilePhone);
             Phones.Add(XAttributeFlatPhone);
-            Person.Add(Address);
             Person.Add(Phones);
+            }
 
-            Person.Save("contact_" + numberOfContact);
-            Console.WriteLine("Контакт успешно сохранено в папке с программой");
-            Console.ReadKey();
-            numberOfContact++;
+
+        public static XElement InputNoteData()
+        {
+            Console.Write("Введите имя:");
+            string name = Console.ReadLine();
+            Console.WriteLine();
+            XElement Person = new XElement("Person");
+            XAttribute XAttributeName = new XAttribute("name", name);
+            Person.Add(XAttributeName);
+            InputAddressData(Person);
+            InputPhoneData(Person);                        
+            return Person;
         }
-        
-            
-        
-        
-        
-        
-        
+
+
+
+
+
+
+
     }
 }
